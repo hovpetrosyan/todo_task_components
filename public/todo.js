@@ -107,7 +107,9 @@ fetch('/api/todos',{
 		},
 		}).then(function(res){
 		 			console.log(res);
-		 			res.json().then(function(data){
+		 			return res.json()
+		 		})
+		.then(function(data){
 		 				console.log(data.data);
 		 					let arr = data.data;
 		 					if(document.getElementById('main_table')){
@@ -115,7 +117,6 @@ fetch('/api/todos',{
 		 					}
 		 					render(Table,arr);
 		 					
-		 		})
 		 		})
 		.catch(function(res){
 			 console.log(res) 

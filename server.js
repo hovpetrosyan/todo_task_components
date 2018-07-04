@@ -21,7 +21,10 @@ app.get('/',function(req,res){
 
 app.post('/api/todo/',function(req,res){
 	console.log(req.body);
-	todo_arr.push({todo:req.body.data,id:id++});
+	if(req.body.data){
+		todo_arr.push({todo:req.body.data,id:id++});	
+	}
+	
 	console.log(todo_arr);
 	res.json({data:todo_arr});
 
