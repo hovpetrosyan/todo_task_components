@@ -41,6 +41,7 @@ class Component {
 		 						document.getElementById('root').removeChild(document.getElementById('main_table'));
 		 					}
 		 					render(Table,arr);
+		 					document.getElementById('inp').focus();
 		 					
 		 		})
 		 		})
@@ -68,7 +69,7 @@ class TODO extends Component{
 
 	render(){
 		const {add} = this.props;
-		return '<input name = "todo" id = "inp"><button class="add" onclick="sendReq('+"'post'"+')">'+add+'</button>';
+		return '<input name = "todo" id = "inp" /><button class="add" onclick="sendReq('+"'post'"+')" >'+add+'</button>';
 	}
 }
 
@@ -87,7 +88,8 @@ class Table extends Component{
 
 	mapItemToRow(item) {
 		const {del, edit} = this.props;
-		return '<tr><td><input name = "todo" id = '+ item.id +' value = '+item.todo+'></td><td><button class="add" onclick="sendReq('+"'put',"+item.id+')">'+edit+'</button></td><td><button class="add" onclick="sendReq('+"'delete',"+item.id+')">'+del+'</button></td><tr>'
+		let todo = item.todo;
+		return '<tr><td><input name = "todo" id = '+ item.id +' value = "'+todo+'"></td><td><button class="add" onclick="sendReq('+"'put',"+item.id+')">'+edit+'</button></td><td><button class="add" onclick="sendReq('+"'delete',"+item.id+')">'+del+'</button></td><tr>'
 	}
 
 	render(){
@@ -116,8 +118,16 @@ fetch('/api/todos',{
 		 						document.getElementById('root').removeChild(document.getElementById('main_table'));
 		 					}
 		 					render(Table,arr);
+							document.getElementById('inp').focus();
+
 		 					
 		 		})
 		.catch(function(res){
 			 console.log(res) 
 			});
+document.addEventListener('keypress',function(e) {
+	
+	if(e.keyCode == 13){
+		sendReq('post');
+	}
+}); 
